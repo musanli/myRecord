@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD LEVEL1//EN">
+<html>
+<head>
+<title>日记详情</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<@p.js_cs base="${base!'空'}"/>
+</head>
+<body>
+	<div class="easyui-panel" style="width:100%;padding:1% 3% 2% 3%;"
+		align="left">
+		<#if diary ??> 
+		<form id="upForm" method="post" style="font-size:12px">
+			 &nbsp;日 &nbsp;记 &nbsp;ID: &nbsp;<input class="easyui-textbox"  value="${diary.diaryid!'空'}" style="width:80%"  readonly="readonly"/>
+			<div style="width:100%;height:5px"></div>
+			创建 &nbsp;时间: &nbsp;<input class="easyui-textbox"  value="${diary.createdate!'空'}"  style="width:80%" readonly="readonly" />
+			<div style="width:100%;height:5px"></div>
+			创建 &nbsp;时间: &nbsp;<input class="easyui-textbox"  value="${diary.createtime!'空'}" style="width:80%"  readonly="readonly" />
+			<div style="width:100%;height:5px"></div>
+			日记 &nbsp;标题: &nbsp;<input class="easyui-textbox"  value="${diary.diarytitle!'空'}" style="width:80%"  readonly="readonly" />
+			<div style="width:100%;height:5px"></div>
+			关联人物 &nbsp;: &nbsp;<input class="easyui-textbox"  value="${diary.resumeid!'空'}" style="width:80%"  readonly="readonly" />
+			<div style="width:100%;height:5px"></div>
+			关联事件 &nbsp;: &nbsp;<input class="easyui-textbox"  value="${diary.matterid!'空'}"  style="width:80%" readonly="readonly" />
+			<div style="width:100%;height:5px"></div>
+			 &nbsp;收 &nbsp; &nbsp; &nbsp;获 &nbsp;: &nbsp;<input class="easyui-textbox"  value="${diary.acquire!'空'}" style="width:80%"  readonly="readonly" />
+			<div style="width:100%;height:5px"></div>
+			 &nbsp;备 &nbsp; &nbsp;注 &nbsp; &nbsp;: &nbsp;<input class="easyui-textbox"  value="${diary.remark!'空'}" style="width:80%" readonly="readonly" />
+			<div style="width:100%;height:25px">日记详情</div>
+			<input class="easyui-textbox" id="contentId" value="${diary.content!'空'}"  data-options="multiline:true" style="width:100%;height:300px" readonly="readonly" />
+		</form>
+		<#else/>
+		<h3 align="center"> 当前日记不存在</h3>
+		</#if>
+	</div>
+	<script type="text/javascript">
+	</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+1、处理器适配器配置
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"></bean>
+		对json的支持
+		<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="messageConverter">
+			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
+		</property>
+	</bean>
+2、处理器映射器的配置
+	1、<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean>
+	2、<bean id = "messageConverters" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
+	  <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean>
+		配置基于注解的处理机适配器
+		添加对json的支持
+		<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+			<property name="messageConverters">
+				<list>
+					<ref bean="messageConverters"/>
+				</list>
+			</property>
+	 </bean>
+	
+	
+3、

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.main.dao.comm.inter.DiaryMapper" >
+  <resultMap id="BaseResultMap" type="com.main.dao.comm.entity.Diary" >
+    <id column="diaryid" property="diaryid" jdbcType="VARCHAR" />
+    <result column="createdate" property="createdate" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="VARCHAR" />
+    <result column="diarytitle" property="diarytitle" jdbcType="VARCHAR" />
+    <result column="RESUMEId" property="resumeid" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.main.dao.comm.entity.DiaryWithBLOBs" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="acquire" property="acquire" jdbcType="LONGVARCHAR" />
+    <result column="matterId" property="matterid" jdbcType="LONGVARCHAR" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    diaryid, createdate, createtime, diarytitle, RESUMEId
+  </sql>
+  <sql id="Base_Where_Clause" >
+    <where >
+      <if test="diaryid !=null and diaryid !='' " >
+         and diaryid = #{diaryid }
+      </if>
+      <if test="createdate !=null and createdate !='' " >
+         and createdate = #{createdate }
+      </if>
+      <if test="createtime !=null and createtime !='' " >
+         and createtime = #{createtime }
+      </if>
+      <if test="diarytitle !=null and diarytitle !='' " >
+         and diarytitle = #{diarytitle }
+      </if>
+      <if test="resumeid !=null and resumeid !='' " >
+         and RESUMEId = #{resumeid }
+      </if>
+    </where>
+  </sql>
+  <sql id="Blob_Column_List" >
+    content, acquire, matterId, remark
+  </sql>
+  <select id="selectOneModel" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from diary
+    where diaryid = #{diaryid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from diary
+    where diaryid = #{diaryid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByModel" parameterType="com.main.dao.comm.entity.Diary" >
+    delete from diary
+    <include refid="Base_Where_Clause" />
+  </delete>
+  <insert id="insert" parameterType="com.main.dao.comm.entity.DiaryWithBLOBs" >
+    insert into diary (diaryid, createdate, createtime, 
+      diarytitle, RESUMEId, content, 
+      acquire, matterId, remark
+      )
+    values (#{diaryid,jdbcType=VARCHAR}, #{createdate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{diarytitle,jdbcType=VARCHAR}, #{resumeid,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, 
+      #{acquire,jdbcType=LONGVARCHAR}, #{matterid,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertByModel" parameterType="com.main.dao.comm.entity.DiaryWithBLOBs" >
+    insert into diary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="diaryid != null" >
+        diaryid,
+      </if>
+      <if test="createdate != null" >
+        createdate,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="diarytitle != null" >
+        diarytitle,
+      </if>
+      <if test="resumeid != null" >
+        RESUMEId,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="acquire != null" >
+        acquire,
+      </if>
+      <if test="matterid != null" >
+        matterId,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="diaryid != null" >
+        #{diaryid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="diarytitle != null" >
+        #{diarytitle,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeid != null" >
+        #{resumeid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="acquire != null" >
+        #{acquire,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="matterid != null" >
+        #{matterid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByModel" parameterType="com.main.dao.comm.entity.DiaryWithBLOBs" >
+    update diary
+    <set >
+      <if test="createdate != null" >
+        createdate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="diarytitle != null" >
+        diarytitle = #{diarytitle,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeid != null" >
+        RESUMEId = #{resumeid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="acquire != null" >
+        acquire = #{acquire,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="matterid != null" >
+        matterId = #{matterid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where diaryid = #{diaryid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.main.dao.comm.entity.DiaryWithBLOBs" >
+    update diary
+    set createdate = #{createdate,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      diarytitle = #{diarytitle,jdbcType=VARCHAR},
+      RESUMEId = #{resumeid,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      acquire = #{acquire,jdbcType=LONGVARCHAR},
+      matterId = #{matterid,jdbcType=LONGVARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where diaryid = #{diaryid,jdbcType=VARCHAR}
+  </update>
+  <update id="update" parameterType="com.main.dao.comm.entity.Diary" >
+    update diary
+    set createdate = #{createdate,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      diarytitle = #{diarytitle,jdbcType=VARCHAR},
+      RESUMEId = #{resumeid,jdbcType=VARCHAR}
+    where diaryid = #{diaryid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByModel" resultMap="ResultMapWithBLOBs" parameterType="com.main.dao.comm.entity.DiaryWithBLOBs" >
+    select 
+    <include refid="Base_Column_List" />, <include refid="Blob_Column_List" />
+    from diary
+    <include refid="Base_Where_Clause" />
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="com.main.dao.comm.entity.Diary" >
+    select count(*) from diary
+    <include refid="Base_Where_Clause" />
+  </select>
+  <select id="SelectAll" resultMap="BaseResultMap" parameterType="com.main.dao.comm.entity.Diary" >
+    select 
+    <include refid="Base_Column_List" />
+    from diary
+  </select>
+  
+  
+  <!-- 条件查询 -->
+  <select id="selectByIDContent" resultMap="ResultMapWithBLOBs" parameterType="com.main.dao.comm.entity.DiaryWithBLOBs">
+  	select <include refid="Base_Column_List" />, <include refid="Blob_Column_List" /> from diary
+  	<where >
+      <if test="diaryid !=null and diaryid !='' " >
+         and diaryid = #{diaryid }
+      </if>
+      <if test="createdate !=null and createdate !='' " >
+         and createdate &gt;= #{createdate }
+      </if>
+      <!-- 将结束时间赋值到remark中 -->
+      <if test="remark !=null and remark !='' " >
+         and createdate &lt;= #{remark }
+      </if>
+      <if test="content !=null and content !='' " >
+         and content like #{content }
+      </if>
+    </where>
+  </select>
+</mapper>

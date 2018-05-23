@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>修改菜单项的弹框</title>
+	<link href="${base}/res/css/base.css" rel="stylesheet" type="text/css" />
+	<script src="${base}/res/easyui/jquery.min.js" type="text/javascript"></script>
+	<script src="${base}/res/lhgDialog/lhgdialog.min.js" type="text/javascript"></script>
+	<script src="${base}/res/js/commonSet.js" type="text/javascript"></script>
+	<script src="${base}/res/js/base.js" type="text/javascript"></script>
+	<link href="${base}/res/css/default/easyui.css" rel="stylesheet" type="text/css" />
+	<link href="${base}/res/css/icon.css" rel="stylesheet" type="text/css" />
+	<script src="${base}/res/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="${base}/res/js/curdtools.js" type="text/javascript"></script>
+	<script src="${base}/res/js/local/easyui-lang-zh_CN.js" type="text/javascript"></script>
+	<link href="${base}/res/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
+	<script src="${base}/res/js/jquery.ztree.core-3.5.js" type="text/javascript"></script>
+	<script src="${base}/res/js/jquery.ztree.excheck-3.5.min.js" type="text/javascript"></script>
+
+</head>
+<body>
+	<script type="text/javascript">
+function addSubmitForm(){
+    $('#registerform2').form('submit',{
+    	url:'${base}/main/menu/updateMenu.do',
+        onSubmit:function(){
+            return $(this).form('enableValidation').form('validate');
+        },
+        success:function(data){
+       		var api = frameElement.api;
+        	var win = frameElement.api.opener;
+	        var data = eval('(' + data + ')');  
+	        if(data.code == true){
+				api.close();
+				win.tip(data.msg);
+				win.reloadTable('tt');
+			}else{
+				tip(data.msg);
+			}
+	    }
+    });
+}
+function submitForm(){
+            $('#registerform').form('submit',{
+                onSubmit:function(){
+                    return $(this).form('enableValidation').form('validate');
+                }
+            });
+        }
+
+/* $(function(){
+	loadRemote();
+}); */
+function loadRemote(){
+//此处没有该是框架本身的东西，此处无用。单最好不要缺失
+			loadFrom("registerform2","${base}/main/menu/menu_json.do?menuid=${(menu.id)!''}");
+        }
+        
+ function doSearch(value){
+	        alert("1111");
+ }
+</script>
+	<style type="text/css">
+        table{ border-collapse:collapse; width:90%; }
+        table td{ width:100px; height:20px;   padding:5px;}
+</style>
+<form method="post" action="o_save.htm" id="registerform2">
+  <table>
+  	    		<tr>
+	    			<td>菜单ID:</td>
+	    			<td><input class="easyui-textbox"  type="text" name="menuid" value="${(menu.id)!''}" disabled="disabled" style="height:30px" ></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>菜单名称:</td>
+	    			<td><input class="easyui-textbox"  type="text" name="menuname" value="${menuname!''}"  data-options="required:true" datatype="*" errormsg="请出入菜单名称" style="height:30px" ></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>请求路径：</td>
+	    			<td><input class="easyui-textbox"  type="text" name="menuurl" value="${menupath!''}" data-options="required:true" style="height:30px"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>父菜单：</td>
+	    			<td> <input class="easyui-combotree" name="menuparentid" id="menuparentid" data-options="url:'${base}/main/menu/ejsonlist.do',onLoadSuccess:function(){
+	    			$('#menuparentid').combotree('setValue',&quot;${(menu.pid)!''}&quot;);
+	    			},method:'post',required:true" style="height:30px"></td>
+	    		</tr>
+	    	<#if (menu.category)??>
+	    		<tr>
+	    			<td>类型：</td>
+	    			<td><input class="easyui-combobox"  id = "menucategory" name="menucategory" data-options="url:&quot${base}/main/menu/ecategory.do?menutype=${(menu.category)!''}&quot,onLoadSuccess:function(data){
+	    			if(data[0] != null){
+	    				$('#menucategory').combobox('setValue',data[0].value);
+	    			}
+	    			},required:true" style="height:30px">
+	    				
+	    			</input></td>
+	    		</tr>
+	    	</#if>
+	    		<tr>
+	    			<td>备注：</td>
+	    			<td>
+	    				<input class="easyui-textbox"  name="menuremark"  value="${menuremark!''}" style="height:30px"></input>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>是否显示：</td>
+	    			<td>
+						<select id="menudisplay" name="menudisplay" class="easyui-combobox" style="height:30px;width:178px">
+							<option value="0" <#if (menudisplay!'') == "0"> selected="selected" </#if> >不显示</option>
+							<option value="1" <#if (menudisplay!'') == "1"> selected="selected" </#if> >显示</option>
+						</select>	
+    				</td>
+	    		</tr>
+	    		<tr>
+	    			<td>是否为文件夹：</td>
+	    			<td>
+						<select id="menufolder" name="menufolder" class="easyui-combobox  " style="height:30px;width:178px">
+							<option value="0" <#if (menufolder!'') == "0"> selected="selected" </#if> >标签</option>
+							<option value="1" <#if (menufolder!'') == "1"> selected="selected" </#if> >标签集</option>
+
+						</select>	
+    				</td>
+	    		</tr>
+	    	</table>
+	    			
+	    			<input type="hidden" name="menuid" value = "${(menu.id)!''}"/>
+	    			<input type="hidden"  id="btn_sub" name="btn_sub" onclick="addSubmitForm()"/>
+
+</form>
+
+</body>
+</html>

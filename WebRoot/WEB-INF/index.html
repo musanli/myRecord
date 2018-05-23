@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+        <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <title>后台登录</title>
+        </head>
+        <body> 
+	<link href="${base}/res/easyui/default/easyui.css" rel="stylesheet" type="text/css"/>
+	<link href="${base}/res/css/icon.css" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" src="${base}/res/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="${base}/res/easyui/jquery.easyui.min.js"></script>
+<style type="text/css">
+a:link,a:visited{
+ text-decoration:none;  /*超链接无下划线*/
+}
+a:hover{
+ text-decoration:underline;  /*鼠标放上去有下划线*/
+} 
+</style>
+<form id="loginform" method="post" action="/MyRecord/login.do">
+  <div id="div1" style="border:1px #88b3d3 solid;MARGIN: auto; MARGIN-top: 5%;width:500px;height:300px;background-color:#F1F1F1; ">
+      	<div id="div2" style="MARGIN-left: 21%;MARGIN-right: 21%; MARGIN-top: 8%;">
+      	
+      		<span style="font-family:'黑体';font-size:25px;">后台登录</span><br/><br/>
+      		<span style="font-size: 14px;font-weight: 700">账号:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="text" class="easyui-textbox" id="username" name="username" data-options="required:true,prompt:'请输入用户名',iconCls:'icon-man'" value="" style="height:30px; width:200px; margin-top:5px"/><br/><br/>
+			
+			<span style="font-size: 14px;font-weight: 700">密码:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="password" class="easyui-textbox " id="userpass"  name="userpass" data-options="required:true,prompt:'请输入密码',iconCls:'icon-lock'" value="" style="height:30px; width:200px; margin-top:5px"/><br/><br/>
+   			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   			<font size="1" color="red" align="center" style="font-size: 14px;font-weight: 700">${errorMessage!""}</font><br>
+   		<div id="codediv" >
+   			<span style="font-size: 14px;font-weight: 700">验证码:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   			<input type="text" class="easyui-textbox " id="code"  name="code"  style="height:30px; width:50px; margin-top:5px;display:none"/>
+   		</div>
+   			<a id="btn" href="javascript:void(0)" style="margin-left:28% " class="easyui-linkbutton" >登录</a><br/><br/>
+   			<span id="ddd" style="color:red; margin-left:5%;font-weight:bold; font-size:14px;"></span><br><br>
+   			
+   			<!-- <a href="/MyRecord/admin/sys/login/reg.do" style="margin-left:25% " ><font size="1" color="blue">没有账号?点击注册>></font></a> 
+   			-->
+		</div>
+		<input type="hidden" id="yzm" name="yzm" value="0"/>
+  </div>
+   </form>
+<script type="text/javascript">
+var flag;
+$(function(){
+	$('#btn').linkbutton('resize', {
+		width: 70,
+		height: 32
+	});
+	initCode();
+	$('#btn').click(dologin);
+	flag = 0;
+	if("1"==flag){
+		showCode();
+	}else{
+		initCode();
+	}
+	isEnterKeyPress();
+	
+})
+function dologin(){
+	var usercode = $("#username").val();
+	var userpass = $("#userpass").val();
+	if(""==usercode||null==usercode){
+		alert("请输入用户名!");
+		$('#username').focus(); 
+		return;
+	}
+	if(""==userpass||null==userpass){
+		alert("请输入密码!");
+		$('#userpass').focus(); 
+		return;
+	}
+	if(flag=="1"){
+		$("#yzm").val("1");
+	}
+	$("#loginform").submit();
+}
+//隐藏验证码
+function initCode(){
+	$("#codediv").hide();
+	$('#code').textbox({    
+		required:false     
+	});
+
+
+}
+//显示验证码
+function showCode(){
+	$("#codediv").show();
+ 	$('#code').textbox({    
+		required:true     
+	});
+}
+//监听回车键
+function isEnterKeyPress(){
+	$('#username').focus(); 
+	$(window).keypress(function (e) { 
+	    var key = e.which; 
+	    if (key == 13) {
+	        $("#btn").click();
+	    }
+	}); 
+}
+</script>
+       <!--  -->
+        </body>
+</html> 

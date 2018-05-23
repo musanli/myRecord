@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>菜单修改项</title>
+	<link href="${base}/res/css/base.css" rel="stylesheet" type="text/css" />
+	<script src="${base}/res/easyui/jquery.min.js" type="text/javascript"></script>
+	<script src="${base}/res/lhgDialog/lhgdialog.min.js" type="text/javascript"></script>
+	<script src="${base}/res/js/commonSet.js" type="text/javascript"></script>
+	<script src="${base}/res/js/base.js" type="text/javascript"></script>
+	<link href="${base}/res/css/default/easyui.css" rel="stylesheet" type="text/css" />
+	<link href="${base}/res/css/icon.css" rel="stylesheet" type="text/css" />
+	<script src="${base}/res/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="${base}/res/js/curdtools.js" type="text/javascript"></script>
+	<script src="${base}/res/js/local/easyui-lang-zh_CN.js" type="text/javascript"></script>
+	<link href="${base}/res/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
+	<script src="${base}/res/js/jquery.ztree.core-3.5.js" type="text/javascript"></script>
+	<script src="${base}/res/js/jquery.ztree.excheck-3.5.min.js" type="text/javascript"></script>
+</head>
+<body>
+<script type="text/javascript">
+$(document).ready(function(){  
+            loadGrid();  
+});  
+function onSuc(){
+$('.pagination-page-list').hide();
+}
+function generate(layout) {
+  	var n = noty({
+  		text: layout,
+  		type: 'alert',
+      	dismissQueue: true,
+  		layout: layout,
+  		theme: 'defaultTheme'
+  	});
+  	console.log('html: '+n.options.id);
+  }
+//加载表格datagrid  
+function loadGrid()  
+{  
+    //加载数据  
+    $('#tt').datagrid({  
+                width: 'auto',  
+                height:300,               
+                striped: true,  
+                singleSelect : true,  
+                url:'${base}/main/menu/showMenuPage.do',  
+                queryParams:{menuid:"${menuid!''}"},  
+                loadMsg:'数据加载中请稍后……',  
+                onLoadSuccess:onSuc,
+                pagination: true,  
+                rownumbers: true,     
+                fit:true,
+                striped:true,
+                toolbar: [{
+							iconCls: 'icon-add',
+							text:'新增',
+							handler: function(){add('菜单录入','main/menu/toupdateMenu.do','tt')}
+						},'-',{
+							iconCls: 'icon-edit',
+							text:'修改',
+							
+							handler: function(){_update()}
+						},'-',{
+							iconCls: 'icon-remove',
+							text:'删除',
+							
+							handler: function(){_del()}
+						}],
+
+                 
+                columns:[[  
+                	{field:'id',title: '菜单ID'},
+                    {field:'name',title: '菜单名称'},  
+                    {field:'url',title: '请求路径'},  
+                    {field:'pid',title: '父亲菜单'},  
+                    {field:'category',title: '类型'},
+                    {field:'remark',title: '备注'},  
+                    {field:'isdisplay',title: '是否显示'},
+                    {field:'isparent',title: '是否为文件夹'}
+                                                                            
+                ]]  
+            });  
+ 
+}  
+function _update(){
+	 var row = $('#tt').datagrid('getSelected');
+	 var URL ="";
+     if (row){
+        URL = "main/menu/toupdateMenu.do?menuid="+row.id;
+        update('菜单修改',URL,'tt',null,null);
+        
+    }
+    
+}
+function reloadTable(){
+		try{
+			$('#tt').datagrid('reload');
+			$('#tt').treegrid('reload');
+		}catch(ex){}
+		}
+function _del(){
+     deleteSelect('菜单删除','${base}/main/menu/delete.do','tt')
+}
+</script>
+
+<table id="tt">
+</table>
+</body>
+</html>

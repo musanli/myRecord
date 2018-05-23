@@ -1,0 +1,31 @@
+<@p.html title="are you ok">
+<h1>are you ok</h1>
+<link rel="stylesheet" type="text/css" href="../../res/easyui/themes/default/easyui.css">
+<script type="text/javascript" src="../../res/easyui/easyloader.js"></script>
+<script type="text/javascript" src="../../res/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../../res/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../../res/easyui/plugins/jquery.combobox.js"></script>
+<div >
+<input type="text" class="easyui-text">
+<button id="select" class="easyui-linkbutton" >select</button>
+<button id="select_button_id" >select_button</button>
+<a href="javascript:void(0)" class="easyui-linkbutton" >Select_A</a>
+ <@st name="managecom" dataoptions= "required:false"    sqlcode="com.main.dao.comm.inter.DictMapper.SelectAll" style="width:350px;height:25px" />
+ 
+ </div>
+<!-- <script type="text/javascript">
+<input id="managecom" name="managecom" class="easyui-combobox"  />
+	//alert("${base!'你水水'}");
+
+	$(function(){
+		$("#select_button_id").attr("class","easyui-linkbutton");
+		$('#managecom').combobox({
+			url:'/MyRecord/test/ui01.do?name=你是谁',
+			valueField:'CODE',
+			textField:'CODENAME',
+			queryParams:{sqlCode:'com.main.dao.comm.inter.DictMapper.SelectAll'}
+			});
+	});
+
+</script> -->
+</@p.html>

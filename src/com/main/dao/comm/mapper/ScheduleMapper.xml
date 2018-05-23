@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.main.dao.comm.inter.ScheduleMapper" >
+  <resultMap id="BaseResultMap" type="com.main.dao.comm.entity.Schedule" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="createDate" property="createdate" jdbcType="VARCHAR" />
+    <result column="taskStartTime" property="taskstarttime" jdbcType="VARCHAR" />
+    <result column="taskEndTime" property="taskendtime" jdbcType="VARCHAR" />
+    <result column="taskStartDate" property="taskstartdate" jdbcType="VARCHAR" />
+    <result column="taskEndDate" property="taskenddate" jdbcType="VARCHAR" />
+    <result column="crateTime" property="cratetime" jdbcType="VARCHAR" />
+    <result column="finish" property="finish" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="VARCHAR" />
+    <result column="isdelete" property="isdelete" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.main.dao.comm.entity.ScheduleWithBLOBs" extends="BaseResultMap" >
+    <result column="outline" property="outline" jdbcType="LONGVARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, createDate, taskStartTime, taskEndTime, taskStartDate, taskEndDate, crateTime, 
+    finish, sort
+  </sql>
+  <sql id="Base_Where_Clause" >
+    <where >
+      <if test="id !=null and id !='' " >
+         and id = #{id }
+      </if>
+      <if test="createdate !=null and createdate !='' " >
+         and createDate = #{createdate }
+      </if>
+      <if test="taskstarttime !=null and taskstarttime !='' " >
+         and taskStartTime = #{taskstarttime }
+      </if>
+      <if test="taskendtime !=null and taskendtime !='' " >
+         and taskEndTime = #{taskendtime }
+      </if>
+      <if test="taskstartdate !=null and taskstartdate !='' " >
+         and taskStartDate = #{taskstartdate }
+      </if>
+      <if test="taskenddate !=null and taskenddate !='' " >
+         and taskEndDate = #{taskenddate }
+      </if>
+      <if test="cratetime !=null and cratetime !='' " >
+         and crateTime = #{cratetime }
+      </if>
+      <if test="finish !=null and finish !='' " >
+         and finish = #{finish }
+      </if>
+      <if test="sort !=null and sort !='' " >
+         and sort = #{sort }
+      </if>
+      <if test="isdelete !=null and isdelete !='' " >
+         and sort = #{isdelete }
+      </if>
+    </where>
+  </sql>
+  <sql id="Blob_Column_List" >
+    outline, content
+  </sql>
+  <select id="selectOneModel" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from schedule
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from schedule
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByModel" parameterType="com.main.dao.comm.entity.Schedule" >
+    delete from schedule
+    <include refid="Base_Where_Clause" />
+  </delete>
+  <insert id="insert" parameterType="com.main.dao.comm.entity.ScheduleWithBLOBs" >
+    insert into schedule (id, createDate, taskStartTime, 
+      taskEndTime, taskStartDate, taskEndDate, 
+      crateTime, finish, sort, 
+      outline, content,isdelete)
+    values (#{id,jdbcType=VARCHAR}, #{createdate,jdbcType=VARCHAR}, #{taskstarttime,jdbcType=VARCHAR}, 
+      #{taskendtime,jdbcType=VARCHAR}, #{taskstartdate,jdbcType=VARCHAR}, #{taskenddate,jdbcType=VARCHAR}, 
+      #{cratetime,jdbcType=VARCHAR}, #{finish,jdbcType=VARCHAR}, #{sort,jdbcType=VARCHAR}, 
+      #{outline,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{isdelete,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertByModel" parameterType="com.main.dao.comm.entity.ScheduleWithBLOBs" >
+    insert into schedule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="taskstarttime != null" >
+        taskStartTime,
+      </if>
+      <if test="taskendtime != null" >
+        taskEndTime,
+      </if>
+      <if test="taskstartdate != null" >
+        taskStartDate,
+      </if>
+      <if test="taskenddate != null" >
+        taskEndDate,
+      </if>
+      <if test="cratetime != null" >
+        crateTime,
+      </if>
+      <if test="finish != null" >
+        finish,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="outline != null" >
+        outline,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="isdelete != null" >
+        isdelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskstarttime != null" >
+        #{taskstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="taskendtime != null" >
+        #{taskendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="taskstartdate != null" >
+        #{taskstartdate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskenddate != null" >
+        #{taskenddate,jdbcType=VARCHAR},
+      </if>
+      <if test="cratetime != null" >
+        #{cratetime,jdbcType=VARCHAR},
+      </if>
+      <if test="finish != null" >
+        #{finish,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=VARCHAR},
+      </if>
+      <if test="outline != null" >
+        #{outline,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByModel" parameterType="com.main.dao.comm.entity.ScheduleWithBLOBs" >
+    update schedule
+    <set >
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskstarttime != null" >
+        taskStartTime = #{taskstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="taskendtime != null" >
+        taskEndTime = #{taskendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="taskstartdate != null" >
+        taskStartDate = #{taskstartdate,jdbcType=VARCHAR},
+      </if>
+      <if test="taskenddate != null" >
+        taskEndDate = #{taskenddate,jdbcType=VARCHAR},
+      </if>
+      <if test="cratetime != null" >
+        crateTime = #{cratetime,jdbcType=VARCHAR},
+      </if>
+      <if test="finish != null" >
+        finish = #{finish,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=VARCHAR},
+      </if>
+      <if test="outline != null" >
+        outline = #{outline,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        isdelete = #{isdelete,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.main.dao.comm.entity.ScheduleWithBLOBs" >
+    update schedule
+    set createDate = #{createdate,jdbcType=VARCHAR},
+      taskStartTime = #{taskstarttime,jdbcType=VARCHAR},
+      taskEndTime = #{taskendtime,jdbcType=VARCHAR},
+      taskStartDate = #{taskstartdate,jdbcType=VARCHAR},
+      taskEndDate = #{taskenddate,jdbcType=VARCHAR},
+      crateTime = #{cratetime,jdbcType=VARCHAR},
+      finish = #{finish,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=VARCHAR},
+      outline = #{outline,jdbcType=LONGVARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      isdelete = #{isdelete,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="update" parameterType="com.main.dao.comm.entity.Schedule" >
+    update schedule
+    set createDate = #{createdate,jdbcType=VARCHAR},
+      taskStartTime = #{taskstarttime,jdbcType=VARCHAR},
+      taskEndTime = #{taskendtime,jdbcType=VARCHAR},
+      taskStartDate = #{taskstartdate,jdbcType=VARCHAR},
+      taskEndDate = #{taskenddate,jdbcType=VARCHAR},
+      crateTime = #{cratetime,jdbcType=VARCHAR},
+      finish = #{finish,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=VARCHAR},
+      isdelete = #{isdelete,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByModel" resultMap="ResultMapWithBLOBs" parameterType="com.main.dao.comm.entity.Schedule" >
+    select 
+    <include refid="Base_Column_List" /> , <include refid="Blob_Column_List" />
+    from schedule
+    <include refid="Base_Where_Clause" />
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="com.main.dao.comm.entity.Schedule" >
+    select count(*) from schedule
+    <include refid="Base_Where_Clause" />
+  </select>
+  <select id="SelectAll" resultMap="BaseResultMap" parameterType="com.main.dao.comm.entity.Schedule" >
+    select 
+    <include refid="Base_Column_List" />
+    from schedule
+  </select>
+  <!-- 条件查询 -->
+  <select id="selectBLOBByModel" resultMap="ResultMapWithBLOBs" parameterType="com.main.dao.comm.entity.ScheduleWithBLOBs">
+	select 
+    <include refid="Base_Column_List" /> , <include refid="Blob_Column_List" />
+    from schedule
+    <where >
+      <if test="id !=null and id !='' " >
+         and id = #{id }
+      </if>
+      <if test="createdate !=null and createdate !='' " >
+         and createDate = #{createdate }
+      </if>
+      <if test="taskstarttime !=null and taskstarttime !='' " >
+         and taskStartTime = #{taskstarttime }
+      </if>
+      <if test="taskendtime !=null and taskendtime !='' " >
+         and taskEndTime = #{taskendtime }
+      </if>
+      <if test="taskstartdate !=null and taskstartdate !='' " >
+         and taskStartDate &gt;= #{taskstartdate }
+      </if>
+      <if test="taskenddate !=null and taskenddate !='' " >
+         and taskEndDate &lt;= #{taskenddate }
+      </if>
+      <if test="cratetime !=null and cratetime !='' " >
+         and crateTime = #{cratetime }
+      </if>
+      <if test="finish !=null and finish !='' " >
+         and finish = #{finish }
+      </if>
+      <if test="sort !=null and sort !='' " >
+         and sort like  #{sort }
+      </if>
+      <if test="outline !=null and outline !='' " >
+         and outline like #{outline }
+      </if>
+      <if test="content !=null and content !='' " >
+         and content like #{content }
+      </if>
+      <if test="isdelete !=null and isdelete !='' " >
+         and isdelete like #{isdelete }
+      </if>
+    </where>
+  </select>
+</mapper>

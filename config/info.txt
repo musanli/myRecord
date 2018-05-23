@@ -1,0 +1,18 @@
+SpringMVC-Sping-MyBatis
+dao统一存放 com.main.dao.comm
+service统一存放 com.main.service.comm
+action统一存放 com.main.action.comm
+
+模块分类
+	1、生活  work
+	2、工作 live
+	3、学习 study
+	3、公共 commonality
+	
+	
+	
+	
+	
+	
+待完成
+	1、配置自己的类，基于AOP编程

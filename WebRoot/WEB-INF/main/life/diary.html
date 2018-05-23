@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD LEVEL1//EN">
+<html>
+<head>
+<title>每日小计</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<@p.js_cs base="${base!''}"/>
+</head>
+
+<body>
+	<script type="text/javascript">
+		function upload() {
+		var fileValue = $('#sourceFile').filebox("getValue");
+		console.log(fileValue);
+		if (fileValue == "") {
+			tip("文件不能为空");
+			return;
+		}
+		
+			$('#uploadform').form('submit', {
+				url : '${base}/main/life/todayMotto.do',
+				//loadMsg : '请求处理中请稍后……',
+				success : function(data) {
+					if (data == "") {
+						tip("没有返回信息") ;
+					}else{
+						tip(data) ;
+					}
+
+				}
+			});
+		}
+	</script>
+
+	<div class="easyui-panel" 
+		style="width:800px;padding:10px 120px 46px 120px">
+		<form id="uploadform" method="post" ENCTYPE="multipart/form-data">
+			<div style="margin-bottom:40px;font-size:16px" >
+				<div >名称:</div>
+				<input name="name" class="easyui-textbox" style="width:100%;height:150%">
+			</div>
+			<div style="margin-bottom:30px;font-size:16px">
+				<div>描述:</div>
+				<input  name="describe" class="easyui-textbox" data-options="multiline:true"  style="width:100%;height:400%" >
+			</div>
+			<div style="margin-bottom:30px;font-size:16px">
+				<div>关键词:</div>
+				<input name="keywords" class="easyui-textbox" data-options="multiline:true"  style="width:100%;height:350%">
+			</div>
+			<div style="margin-bottom:30px;font-size:16px">
+				<div>File1:</div>
+				<input  class="easyui-filebox" name="sourceFile" id="sourceFile"
+					data-options="prompt:'请选择文件......'" style="width:100%;height:150%" >
+			</div>
+			<div align="left" style="margin-bottom:30px;font-size:14px">
+			字符集 :<br/>
+				<select id="fileCharSet" name="fileCharSet" class="easyui-combobox" style="height:30px;width:100%;">
+					<option value="GBK" >GBK</option>
+					<option value="UTF-8" selected="selected" >UTF8</option>
+				</select>
+			</div>
+			<div >
+				<a class="easyui-linkbutton" style="width:100%" onclick="upload()">Upload</a>
+			</div>
+		</form>
+	</div>
+</body>
+<!--  	<form action="" method="post" enctype="multipart/form-data">
+		<div style="float: left">请选择导入文件：</div>
+		<div style="float: left; margin-left: 50px">
+			<input type="file" name="uploadingFile" id="uploadingFile"  class="easyui-filebox" style="width: 300px; height: 20px; margin-left: 48px;" />
+						<span style="width: 300px"></span>
+		</div>
+		<div>
+			<a class="easyui-linkbutton" onclick="upload()">mapper文件导入</a>
+		</div>
+	</form>  -->
+</html>

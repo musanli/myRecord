@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=WebRoot/res/js/insure_b.js,WebRoot/res/js/insure_b_dx.js,WebRoot/res/easyui/jquery.min.js,WebRoot/res/js/jquery-2.1.0.min.js,src/generatorConfig.xml,WebRoot/res/js/jquery-1.11.0.min.js,WebRoot/res/js/jquery.min.js,WebRoot/res/js/jquery-1.8.3.min.js,WebRoot/res/js/jquery-1.7.2.min.js,WebRoot/WEB-INF/main/login.html,WebRoot/res/js/commonSet.js
+validator.Unchecked=

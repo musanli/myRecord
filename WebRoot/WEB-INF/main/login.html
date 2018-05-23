@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title>后台管理系统</title>
+</head>
+<body>
+
+	<link href="${base}/res/css/base.css" rel="stylesheet" type="text/css" />
+	<script src="${base}/res/easyui/jquery.min.js" type="text/javascript"></script>
+	<script src="${base}/res/lhgDialog/lhgdialog.min.js" type="text/javascript"></script>
+	<script src="${base}/res/js/commonSet.js" type="text/javascript"></script>
+	<script src="${base}/res/js/base.js" type="text/javascript"></script>
+	<link href="${base}/res/css/default/easyui.css" rel="stylesheet" type="text/css" />
+	<link href="${base}/res/css/icon.css" rel="stylesheet" type="text/css" />
+	<script src="${base}/res/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="${base}/res/js/curdtools.js" type="text/javascript"></script>
+	<script src="${base}/res/js/local/easyui-lang-zh_CN.js" type="text/javascript"></script>
+	<link href="${base}/res/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
+	<script src="${base}/res/js/jquery.ztree.core-3.5.js" type="text/javascript"></script>
+	<script src="${base}/res/js/jquery.ztree.excheck-3.5.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		function onClick(event, treeId, treeNode, clickFlag) {
+			if (treeNode.isParent) {
+				return false;
+			} else {
+				var vPath = treeNode.name;
+				var l = treeNode.level;
+				if (l != 0) {
+					var pnode = treeNode.getParentNode();
+					vPath = pnode.name + " > " + vPath;
+					l = pnode.level;
+					while (l != 0) {
+						pnode = pnode.getParentNode();
+						vPath = pnode.name + " > " + vPath;
+						l = pnode.level;
+					}
+					while (l != 0)
+						;
+				}
+				$(".layout-panel-center   .panel-title").text(vPath);
+				_ContentFrame.location.href = treeNode.url
+			}
+		}
+		
+		<#if userRole??>
+			<#list userRole as user>
+		 var ${user.setting} = {
+			async : {
+				enable : true,//是否启用异步加载模式
+				type : "post",//Ajax 的 http 请求模式,type = "post" 表示异步加载采用 post 方法请求;type = "get" 表示异步加载采用 get 方法请求
+				otherParam : { "menutype":"${user.menutype}" , "target":"_ContentFrame" },//Ajax 请求提交的静态参数键值对,默认值：[ ];直接用 JSON 格式制作键值对，例如：{ key1:value1, key2:value2 }
+				//进行异步加载时，将提交参数 menuid=M001
+				url : "${base}/menu/jsonlist.do"
+			},//Ajax 获取数据的 URL 地址
+			view : {
+				selectedMulti : false
+			},//设置是否允许同时选中多个节点。
+			callback : {
+				onClick : onClick
+			},//用于捕获节点被点击的事件回调函数, 调用onClick方法
+			data : {
+				simpleData : {
+					enable : true,
+					idKey : "id",
+					pIdKey : "pid",
+					rootPId : 0
+				}
+			}
+		};
+		</#list>
+		</#if>
+		
+		$(document).ready(function() {
+		<#if userRole??>
+			<#list userRole as user>
+				$.fn.zTree.init($("#${user.id}"), ${user.setting});
+			</#list>
+		</#if>
+			//$.fn.zTree.init($("#SysTree"), SysSetting);
+			//$.fn.zTree.init($("#BussTree"), BussSetting);
+			//$('#inforCenter').click(hideTip);
+		
+		});
+		function hideTip() {
+			$('#reportCenter').tooltip("hide");
+		}
+		function showTip(cont) {
+			$('#reportCenter').tooltip({
+				position : 'left',
+				showEvent : 'none',
+				hideEvent : 'none',
+				content : '<span >' + cont + '</span>'
+			});
+			$('#reportCenter').tooltip("show");
+		}
+		var wait
+		function say() {
+			if (!wait) {
+				wait = setInterval(query, 2000);
+			}
+
+		}
+
+		function query() {
+			$.ajax({
+				cache : false,
+				type : 'POST',
+				url : '/ipartner/admin/queryTask.do',// 请求的action路径
+				data : {
+					userCode : 'admin'
+				},
+				error : function() {// 请求失败处理函数
+				},
+				error : function() {// 请求失败处理函数
+				},
+				beforeSend : function(xhr) {
+				},
+				complete : function(xhr, status) {
+				},
+				success : function(data) {
+					var d = $.parseJSON(data);
+					if (d.success) {
+						if (d.msg != 0) {
+							showTip("共有" + d.msg + "个任务正在生成...");
+						} else {
+							clearInterval(wait);
+							wait = null;
+							showTip("任务全部完成！");
+						}
+					} else {
+						clearInterval(wait);
+						wait = null;
+						tip(d.msg);
+					}
+
+				}
+			});
+		}
+
+		function gotoModifyPwd() {
+			var title = "修改密码";
+			var url = "/ipartner/admin/login/modifyPwd.do";
+			var okbutton = "修改";
+			var closebutton = "关闭";
+			opensubwin(title, url, okbutton, closebutton);
+		}
+		function gotoLockSys() {
+			var title = "锁屏";
+			var url = "/ipartner/admin/sys/user/golockSys.do";
+			var okbutton = "登录";
+			var closebutton = "重新登录";
+			openlockwin(title, url, okbutton, closebutton);
+		}
+	</script>
+	<style>
+<!--
+.u-img3 {
+	display: block;
+	position: relative;
+	height: 40px;
+	padding: 2px;
+	border: 1px solid #ddd;
+	float: left;
+	border-radius: 5px;
+	vertical-align: middle;
+	line-height: 40px;
+	)
+}
+
+.u-img2 {
+	display: block;
+	width: 40px;
+	height: 40px;
+	padding: 2px;
+	border: 1px solid #ddd;
+	float: left;
+}
+
+.u-img2,.u-img2 img {
+	border-radius: 5px;
+}
+
+.u-img2 img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+/* 图片高适应 */
+.u-img2-ha,.u-img2-ha img {
+	height: auto;
+}
+-->
+</style>
+<body class="easyui-layout" id="easyui-layout">
+
+	<!--title="Nort"  split="true"-->
+	<div region="north"
+		style="height:60px; background:url(${base}/res/images/logo.png) left center no-repeat;">
+		<div
+			style="padding:5px 20px;position:relative;height:40px;width:55%;float:right;">
+			<div style="float:left">
+				<a href="#" class="u-img2"><img
+					src="${base}/res/images/sno2.png" alt="" /></a> <span class="u-img3">
+					登录帐号：<span class="red">管理员（admin）</span> | 
+					<!-- 
+					<a href="javascript:gotoLockSys()" title="修改密码">【锁屏】</a> |
+					<a href="javascript:gotoModifyPwd()" title="修改密码">【修改密码】</a> | 
+					-->
+					<a href="/ipartner/admin/loginout.do">【退出】</a>
+				</span>
+
+
+			</div>
+<!-- 		报表中心，搁置	
+		<div style="float:right">
+				<a href="#" class="easyui-linkbutton " id="reportCenter"
+					onclick="openwindow('报表中心','/ipartner/admin/index/reportCenter.do');hideTip();"
+					data-options="iconCls:'icon-excel',iconAlign:'top'">报表中心</a>
+
+			</div> -->
+		</div>
+	</div>
+	</div>
+	<!--
+		<div region="south" split="true"  style="height:40px;background:#efefef;">
+			<span>版权说明</span>
+		</div>
+		-->
+	<div region="west" split="true" title="菜单"
+		style="width:180px;overflow:hidden;">
+		<div class="easyui-accordion" fit="true" border="false">
+			<#if userRole??> 
+				<#list userRole as user>
+				<div title="${user.name!''}" selected="true" style="overflow:auto;">
+					<ul id="${user.id!''}" class="ztree"></ul>
+				</div>
+				</#list> 
+			</#if>
+			<!-- 
+			<div title="工作" selected="true" style="overflow:auto;">
+				<ul id="BussTree" class="ztree"></ul>
+			</div>
+			<div title="生活" style="overflow:auto;">
+				<ul id="SysTree" class="ztree"></ul>
+			</div>
+			<div title="学习" style="overflow:auto;">
+				<ul id="OtherTree" class="ztree"></ul>
+			</div>
+			<div title="系统" style="overflow:auto;">
+				<ul id="systemTree" class="ztree"></ul>
+			</div> 
+			-->
+		</div>
+	</div>
+	<div title="欢迎页" id="main_title" style="overflow:hidden;"
+		region="center">
+		<iframe name="_ContentFrame" id="_ContentFrame" width="100%"
+			height="100%" frameborder="2" scrolling="auto" src=""> </iframe>
+	</div>
+</body>
+
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="lazyLoadingEnabled" value="false"/>
+		<setting name="logImpl" value="LOG4J"/>
+		<setting name="callSettersOnNulls" value="true"/>
+	</settings>
+	
+	<plugins>
+		<plugin interceptor="com.main.util.mybatis.plugin.PageInterceptor">
+	    	<property name="dialect" value="mysql"/>
+	   		<property name="reasonable" value="true"/>
+		</plugin>
+		 <plugin interceptor="com.main.util.mybatis.plugin.ShowUpdateSQLInterceptor"/> 
+	</plugins>
+	<!-- 对指定的类定义别名 	
+	<typeAliases >
+	<typeAlias type="" alias=""/>
+	</typeAliases>
+	-->
+	<!-- 配置mybatis的环境信息 
+	 <environments default="development">
+		<environment id="development">
+			配置jdbc事务，交由mybatis管理
+			<transactionManager type="JDBC"></transactionManager>
+			配置数据源采用dbcp连接池
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				指定数据编码
+				<property name="url"
+					value="jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;characterEncoding=utf8" />
+				<property name="username" value="root" />
+				<property name="password" value="root" />
+			</dataSource>
+		</environment>
+	</environments> -->
+	
+	
+		<!-- 单独使用mybatis框架时需要主动加载mapper文件
+	<mappers>
+		<mapper  resource="com/mybatis/dao/mapper/user_mapper.xml" />
+		<mapper  resource="com/mybatis/dao/mapper/mypersoninfo_mapper.xml" />
+	</mappers>
+	 -->
+
+</configuration>

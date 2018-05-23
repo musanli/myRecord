@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="${basesession}/res/js/jquery-1.4.2.js"></script>
+<title>Insert title here</title>
+<!-- 
+	本html模拟freemarker取值（list取值、map取值） 
+	其中list的引用名称为list
+	map的引用名称为map
+-->
+<#if list??>
+	<#list list as risk>
+		${risk.name!"null"}:${risk.remark!"null"} ;<br/>
+	</#list>
+</#if>
+<hr/>
+	<#list map?keys as k>
+		${k} ;  ${map[k]!"为空"}<br/>
+	</#list>
+</head>
+<body>
+<h1 align="center">	</h1>
+<script type="text/javascript">
+$(function(){
+	alert("${basesession};${name}");
+}) ;
+</script>
+</body>
+</html>

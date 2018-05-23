@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.main.dao.comm.inter.MenuManageMapper" >
+  <resultMap id="BaseResultMap" type="com.main.dao.comm.entity.MenuManage" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="isparent" property="isparent" jdbcType="VARCHAR" />
+    <result column="isdisplay" property="isdisplay" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pid, NAME, url, category, isparent, isdisplay, remark
+  </sql>
+  <sql id="Base_Where_Clause" >
+    <where >
+      <if test="id !=null and id !='' " >
+         and id = #{id }
+      </if>
+      <if test="pid !=null and pid !='' " >
+         and pid = #{pid }
+      </if>
+      <if test="name !=null and name !='' " >
+         and NAME = #{name }
+      </if>
+      <if test="url !=null and url !='' " >
+         and url = #{url }
+      </if>
+      <if test="category !=null and category !='' " >
+         and category = #{category }
+      </if>
+      <if test="isparent !=null and isparent !='' " >
+         and isparent = #{isparent }
+      </if>
+      <if test="isdisplay !=null and isdisplay !='' " >
+         and isdisplay = #{isdisplay }
+      </if>
+      <if test="remark !=null and remark !='' " >
+         and remark = #{remark }
+      </if>
+    </where>
+  </sql>
+  <select id="selectOneModel" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from menu_manage
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from menu_manage
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByModel" parameterType="com.main.dao.comm.entity.MenuManage" >
+    delete from menu_manage
+    <include refid="Base_Where_Clause" />
+  </delete>
+  <insert id="insert" parameterType="com.main.dao.comm.entity.MenuManage" >
+    insert into menu_manage (id, pid, NAME, 
+      url, category, isparent, 
+      isdisplay, remark)
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{isparent,jdbcType=VARCHAR}, 
+      #{isdisplay,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertByModel" parameterType="com.main.dao.comm.entity.MenuManage" >
+    insert into menu_manage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="isparent != null" >
+        isparent,
+      </if>
+      <if test="isdisplay != null" >
+        isdisplay,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="isparent != null" >
+        #{isparent,jdbcType=VARCHAR},
+      </if>
+      <if test="isdisplay != null" >
+        #{isdisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByModel" parameterType="com.main.dao.comm.entity.MenuManage" >
+    update menu_manage
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="isparent != null" >
+        isparent = #{isparent,jdbcType=VARCHAR},
+      </if>
+      <if test="isdisplay != null" >
+        isdisplay = #{isdisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="update" parameterType="com.main.dao.comm.entity.MenuManage" >
+    update menu_manage
+    set pid = #{pid,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      isparent = #{isparent,jdbcType=VARCHAR},
+      isdisplay = #{isdisplay,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByModel" resultMap="BaseResultMap" parameterType="com.main.dao.comm.entity.MenuManage" >
+    select 
+    <include refid="Base_Column_List" />
+    from menu_manage
+    <include refid="Base_Where_Clause" />
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="com.main.dao.comm.entity.MenuManage" >
+    select count(*) from menu_manage
+    <include refid="Base_Where_Clause" />
+  </select>
+  <select id="SelectAll" resultMap="BaseResultMap" parameterType="com.main.dao.comm.entity.MenuManage" >
+    select 
+    <include refid="Base_Column_List" />
+    from menu_manage
+  </select>
+  <!-- 获取菜单项 -->
+  <select id="selectTopCategory" resultMap="BaseResultMap" parameterType="com.main.dao.comm.entity.MenuManage">
+      select 
+    <include refid="Base_Column_List" />
+    from menu_manage where  pid ='HIGHEST'
+	<if test="category !=null and category !='' ">
+		and category = #{category } 
+	</if>
+	and category != 'COMMON'
+  </select>
+  <!-- 查询子菜单项 -->
+  <select id="selectSonMenu" resultMap="BaseResultMap" parameterType="com.main.dao.comm.entity.MenuManage">
+     select <include refid="Base_Column_List" />
+    from menu_manage where isdisplay = #{isdisplay} and (category = #{category} or category="COMMON")
+  </select>
+  
+  <!-- 获取最高节点的ID -->
+  <select id="selectByPid" resultType="java.lang.String" resultMap="BaseResultMap">
+   select <include refid="Base_Column_List" /> from menu_manage where
+   	<if test="pid !=null and pid !='' ">
+		pid = #{pid,jdbcType=VARCHAR} 
+	</if>
+	<if test="pid ==null">
+		pid is null
+	</if>
+	<if test="pid ==''">
+		pid = ''
+	</if>
+  </select>
+  <!-- 查询所有信息，并设置别名 -->
+  <select id="selectAllByAlias" resultType="com.main.dao.system.EasyUIComboTreePojo">
+  SELECT id AS id,pid AS pid,NAME AS TEXT FROM menu_manage ORDER BY pid
+  </select>
+</mapper>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>日记查询</title><!-- rest/main/life/schedule.html -->
+<@p.js_cs base="${base!''}"/>
+</head>
+<body>
+	<div class="easyui-layout" data-options="fit:true" id="dictMain">
+		<div data-options="region:'north',border:true"
+			data-options="fit:false"
+			style="padding-top: 2px; padding-bottom: 5px;">
+			<fieldset style="padding: 10px; border: solid 1px #aba; margin: 5px;">
+				<legend>日记查询条件</legend>
+				<form id="fm" name="fm" method="post">
+					<div id="LecorderinfoSeachInfo" style="padding: 5px;">
+						<table style="width: 90%;">
+							<tr height="30">
+								<td style="width:80px;">开始起期：</td>
+								<td style="width:150px;"><input id="startDate"
+									name="startDate" class="easyui-datebox" /></td>
+								<td style="width:80px;">结束止期：</td>
+								<td style="width:150px;"><input id="endDate"
+									name="endDate" class="easyui-datebox" /></td>
+								<td style="width:80px;">日程类别：</td>
+								<td style="width:150px;"><input id="scheduleSort" name="scheduleSort" class="easyui-textbox" /></td>
+							</tr>
+							<tr height="30">
+								<td style="width:80px;">日程内容：</td>
+								<td style="width:150px;"><input id="scheduleContent" name="scheduleContent"
+									class="easyui-textbox" /></td>
+								<td style="width:80px;">日程状态：</td>
+								<td style="width:150px;">
+								<select id="scheduleState" name="scheduleState" class="easyui-combobox" style="width:70%">
+								<option value="Y" >已结束</option>
+								<option value="N" selected="selected">未结束</option>
+								</select>
+								<td style="width:80px;">待定信息：</td>
+								<td style="width:150px;"><input id="mobile" name="mobile"
+									class="easyui-textbox" /></td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</fieldset>
+		</div>
+		<div data-options="region:'center',border:true">
+			<!--不使用javascriptd的方式创建table sqlCode="UserMapper.SelectRoleByUserId" queryParams="userid:11111,rolecode" -->
+			<table id='gridTableId' class="easyui-datagrid" name="gridTableId" 
+				style="width: auto; height: 300;"
+				data-options=" striped: true, url:'${base}/main/comm/scheduleList.do',fitColumns:false,singleSelect:true,rownumbers:true,toolbar:'#lotools',loadMsg:'数据加载中请稍后……',pagination:true,fit:true">
+				<thead>
+					<tr>
+						<th data-options="field:'id',width:100">日程ID</th>
+						<th data-options="field:'sort',width:100">日程类型</th>
+						<th data-options="field:'createdate',width:70">创建日期</th>
+						<th data-options="field:'outline',width:150">摘要</th>
+						<th data-options="field:'finish',width:60" >是否完成</th>
+						<th data-options="field:'taskenddate',width:250" >任务期间</th>
+						<th data-options="field:'content',width:640">日程内容</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div id="lotools">
+			<a  class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="gridUpdate('gridTableId')">修改</a> |
+			<a  class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="gridAdd('gridTableId')">添加</a> |
+			<a  class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="gridSelect()">查询</a> |
+			<a  class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="gridDelete('gridTableId')">删除</a> 
+ </div>
+	</div>
+	<script type="text/javascript">
+	/*	增加  */
+	function gridAdd(gridName){
+		var id = $('#'+gridName).datagrid('getSelected');
+		console.log(id) ;
+		add('分配客户号1','${base}/main/comm/scheduleManage.do',gridName) ;
+	}
+	
+	/* 	修改	 */
+	function gridUpdate(gridName){
+		var Id = $('#'+gridName).datagrid('getSelected');
+			if(!Id || Id.length==0){
+			tip("请选择编辑项目");
+			return ;
+		}
+		console.log(Id) ;
+		var scheduleId = Id.id ;
+		update('分配客户号1','${base}/main/comm/scheduleManage.do?scheduleId='+scheduleId,gridName) ;
+	}
+	
+	/* 	删除	 */
+		function gridDelete(gridName){
+			var _selected = $('#'+gridName).datagrid('getSelected');
+			if(!_selected || _selected.length==0){
+				tip("请选择编辑项目");
+				return ;
+			}
+			scheduleId = _selected.id ;
+			console.log(scheduleId) ;
+			deleteSelect('分配客户号1','${base}/main/comm/deleteSchedule.do?scheduleId='+scheduleId,gridName) ;
+	}
+	
+	/*  查询	 */
+	function gridSelect(){
+	$('#gridTableId').datagrid('load',{
+	  startDate:$('#startDate').datetimebox('getValue'),
+	  endDate:$('#endDate').datetimebox('getValue'),
+	  scheduleSort:$('#scheduleSort').val(),
+	  scheduleContent:$('#scheduleContent').val(),
+	  scheduleState:$('#scheduleState').combobox('getValue'),
+	  mobile:$('#mobile').val()
+	});
+//		 $('#fm').form('submit',{
+//    		url:'${base}/main/comm/scheduleList.do',
+//        	onSubmit:function(){
+//            return true;
+//        },
+//        success:function(data){
+//       		alert(data) ;
+//       		$('#gridTableId').datagrid({
+//				data: data
+//			});
+//	    }
+//    });
+	}
+	</script>
+</body>
+</html>

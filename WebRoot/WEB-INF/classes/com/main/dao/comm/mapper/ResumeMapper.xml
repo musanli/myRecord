@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.main.dao.comm.inter.ResumeMapper" >
+  <resultMap id="BaseResultMap" type="com.main.dao.comm.entity.Resume" >
+    <id column="RESUMEid" property="resumeid" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="hobby" property="hobby" jdbcType="VARCHAR" />
+    <result column="birthDate" property="birthdate" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="professional" property="professional" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.main.dao.comm.entity.ResumeWithBLOBs" extends="BaseResultMap" >
+    <result column="history" property="history" jdbcType="LONGVARCHAR" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RESUMEid, NAME, sex, age, address, hobby, birthDate, tel, email, professional
+  </sql>
+  <sql id="Base_Where_Clause" >
+    <where >
+      <if test="resumeid !=null and resumeid !='' " >
+         and RESUMEid = #{resumeid }
+      </if>
+      <if test="name !=null and name !='' " >
+         and NAME = #{name }
+      </if>
+      <if test="sex !=null and sex !='' " >
+         and sex = #{sex }
+      </if>
+      <if test="age !=null and age !='' " >
+         and age = #{age }
+      </if>
+      <if test="address !=null and address !='' " >
+         and address = #{address }
+      </if>
+      <if test="hobby !=null and hobby !='' " >
+         and hobby = #{hobby }
+      </if>
+      <if test="birthdate !=null and birthdate !='' " >
+         and birthDate = #{birthdate }
+      </if>
+      <if test="tel !=null and tel !='' " >
+         and tel = #{tel }
+      </if>
+      <if test="email !=null and email !='' " >
+         and email = #{email }
+      </if>
+      <if test="professional !=null and professional !='' " >
+         and professional = #{professional }
+      </if>
+    </where>
+  </sql>
+  <sql id="Blob_Column_List" >
+    history, remark
+  </sql>
+  <select id="selectOneModel" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from resume
+    where RESUMEid = #{resumeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from resume
+    where RESUMEid = #{resumeid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByModel" parameterType="com.main.dao.comm.entity.Resume" >
+    delete from resume
+    <include refid="Base_Where_Clause" />
+  </delete>
+  <insert id="insert" parameterType="com.main.dao.comm.entity.ResumeWithBLOBs" >
+    insert into resume (RESUMEid, NAME, sex, 
+      age, address, hobby, 
+      birthDate, tel, email, 
+      professional, history, remark
+      )
+    values (#{resumeid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, 
+      #{birthdate,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{professional,jdbcType=VARCHAR}, #{history,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertByModel" parameterType="com.main.dao.comm.entity.ResumeWithBLOBs" >
+    insert into resume
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resumeid != null" >
+        RESUMEid,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="hobby != null" >
+        hobby,
+      </if>
+      <if test="birthdate != null" >
+        birthDate,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="professional != null" >
+        professional,
+      </if>
+      <if test="history != null" >
+        history,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resumeid != null" >
+        #{resumeid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdate != null" >
+        #{birthdate,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="professional != null" >
+        #{professional,jdbcType=VARCHAR},
+      </if>
+      <if test="history != null" >
+        #{history,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByModel" parameterType="com.main.dao.comm.entity.ResumeWithBLOBs" >
+    update resume
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdate != null" >
+        birthDate = #{birthdate,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="professional != null" >
+        professional = #{professional,jdbcType=VARCHAR},
+      </if>
+      <if test="history != null" >
+        history = #{history,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where RESUMEid = #{resumeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.main.dao.comm.entity.ResumeWithBLOBs" >
+    update resume
+    set NAME = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      birthDate = #{birthdate,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      professional = #{professional,jdbcType=VARCHAR},
+      history = #{history,jdbcType=LONGVARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where RESUMEid = #{resumeid,jdbcType=VARCHAR}
+  </update>
+  <update id="update" parameterType="com.main.dao.comm.entity.Resume" >
+    update resume
+    set NAME = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      birthDate = #{birthdate,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      professional = #{professional,jdbcType=VARCHAR}
+    where RESUMEid = #{resumeid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByModel" resultMap="BaseResultMap" parameterType="com.main.dao.comm.entity.Resume" >
+    select 
+    <include refid="Base_Column_List" />
+    from resume
+    <include refid="Base_Where_Clause" />
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="com.main.dao.comm.entity.Resume" >
+    select count(*) from resume
+    <include refid="Base_Where_Clause" />
+  </select>
+  <select id="SelectAll" resultMap="BaseResultMap" parameterType="com.main.dao.comm.entity.Resume" >
+    select 
+    <include refid="Base_Column_List" />
+    from resume
+  </select>
+</mapper>

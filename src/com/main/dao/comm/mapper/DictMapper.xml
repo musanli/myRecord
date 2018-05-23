@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.main.dao.comm.inter.DictMapper" >
+  <resultMap id="BaseResultMap" type="com.main.dao.comm.entity.Dict" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, value, remark
+  </sql>
+  <sql id="Base_Where_Clause" >
+    <where >
+      <if test="id !=null and id !='' " >
+         and id = #{id }
+      </if>
+      <if test="name !=null and name !='' " >
+         and name = #{name }
+      </if>
+      <if test="value !=null and value !='' " >
+         and value = #{value }
+      </if>
+      <if test="remark !=null and remark !='' " >
+         and remark = #{remark }
+      </if>
+    </where>
+  </sql>
+  <select id="selectOneModel" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dict
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dict
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByModel" parameterType="com.main.dao.comm.entity.Dict" >
+    delete from dict
+    <include refid="Base_Where_Clause" />
+  </delete>
+  <insert id="insert" parameterType="com.main.dao.comm.entity.Dict" >
+    insert into dict (id, name, value, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertByModel" parameterType="com.main.dao.comm.entity.Dict" >
+    insert into dict
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByModel" parameterType="com.main.dao.comm.entity.Dict" >
+    update dict
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="update" parameterType="com.main.dao.comm.entity.Dict" >
+    update dict
+    set name = #{name,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByModel" resultMap="BaseResultMap" parameterType="com.main.dao.comm.entity.Dict" >
+    select 
+    <include refid="Base_Column_List" />
+    from dict
+    <include refid="Base_Where_Clause" />
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="com.main.dao.comm.entity.Dict" >
+    select count(*) from dict
+    <include refid="Base_Where_Clause" />
+  </select>
+  <select id="SelectAll" resultMap="BaseResultMap" parameterType="com.main.dao.comm.entity.Dict" >
+    select 
+    <include refid="Base_Column_List" />
+    from dict
+  </select>
+  <select id="selectAllNameCode" resultType="java.util.Map"  >
+    select 
+   name CODENAME,
+   value CODE
+    from dict
+  </select>
+</mapper>

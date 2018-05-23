@@ -1,0 +1,24 @@
+<!-- 1、加载配置文件 -->有三种情况
+	1)、通过context:property直接加载，较为简洁
+		<context:property-placeholder location="classpath:jdbc.properties" />
+	2)、等价于1，更容易理解
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations"> 
+			<!-- PropertyPlaceholderConfigurer类中有个locations属性，接收的是一个数组，即我们可以在下面配好多个properties文件 -->
+				<array>
+					<value>classpath:jdbc.properties</value>
+				</array>
+			</property>
+		</bean>
+	3)、可以在java中通过注解的方式获取配置文件(在java中通过@Value("#{jdbc.username}") 获取配置文件中的信息)
+		<bean id="prop" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+			<property name="locations">
+			<!-- 这里是PropertiesFactoryBean类，它也有个locations属性，也是接收一个数组，跟上面一样 -->
+				<array>
+					<value>classpath:jdbc.properties</value>
+				</array>
+			</property>
+		</bean>
+		
+		
+2、配置数据库连接器 
