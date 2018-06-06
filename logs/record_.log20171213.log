@@ -1,0 +1,18 @@
+[framework]2017-12-13 08:58:58,569 - com.main.util.SSILogger -0    [main] DEBUG com.main.util.SSILogger  - 当前时间 :2017-12-13 08:58:58:569
+[framework]2017-12-13 08:58:58,570 - com.main.util.SSILogger -1    [main] INFO  com.main.util.SSILogger  - 当前时间 :2017-12-13 08:58:58:569
+[framework]2017-12-13 08:58:58,571 - com.main.util.SSILogger -2    [main] ERROR com.main.util.SSILogger  - 当前时间 :2017-12-13 08:58:58:569
+[framework]2017-12-13 09:03:55,200 - com.main.util.SSILogger -0    [main] DEBUG com.main.util.SSILogger  - 当前时间 :2017-12-13 09:03:55:199
+[framework]2017-12-13 09:03:55,201 - com.main.util.SSILogger -1    [main] INFO  com.main.util.SSILogger  - 当前时间 :2017-12-13 09:03:55:199
+[framework]2017-12-13 09:03:55,201 - com.main.util.SSILogger -1    [main] ERROR com.main.util.SSILogger  - 当前时间 :2017-12-13 09:03:55:199
+[framework]2017-12-13 09:13:19,641com.main.util.SSILogger-com.main.util.SSILogger.main(SSILogger.java:13): 当前时间 :2017-12-13 09:13:19:640
+[framework]2017-12-13 09:13:19,668com.main.util.SSILogger-com.main.util.SSILogger.main(SSILogger.java:15): 当前时间 :2017-12-13 09:13:19:640
+[framework]2017-12-13 09:13:19,668com.main.util.SSILogger-com.main.util.SSILogger.main(SSILogger.java:17): 当前时间 :2017-12-13 09:13:19:640
+[framework]2017-12-13 09:13:55,553-com.main.util.SSILogger -0    [main] DEBUG com.main.util.SSILogger  - 当前时间 :2017-12-13 09:13:55:553
+[framework]2017-12-13 09:13:55,555-com.main.util.SSILogger -2    [main] INFO  com.main.util.SSILogger  - 当前时间 :2017-12-13 09:13:55:553
+[framework]2017-12-13 09:13:55,555-com.main.util.SSILogger -2    [main] ERROR com.main.util.SSILogger  - 当前时间 :2017-12-13 09:13:55:553
+[framework]2017-12-13 09:14:14,091com.main.util.SSILogger-com.main.util.SSILogger.main(SSILogger.java:13)- 当前时间 :2017-12-13 09:14:14:090
+[framework]2017-12-13 09:14:14,093com.main.util.SSILogger-com.main.util.SSILogger.main(SSILogger.java:15)- 当前时间 :2017-12-13 09:14:14:090
+[framework]2017-12-13 09:14:14,093com.main.util.SSILogger-com.main.util.SSILogger.main(SSILogger.java:17)- 当前时间 :2017-12-13 09:14:14:090
+[framework]17十二月1309:14:33:5980-com.main.util.SSILogger-com.main.util.SSILogger.main(SSILogger.java:13)- 当前时间 :2017-12-13 09:14:33:597
+[framework]17十二月1309:14:33:6013-com.main.util.SSILogger-com.main.util.SSILogger.main(SSILogger.java:15)- 当前时间 :2017-12-13 09:14:33:597
+[framework]17十二月1309:14:33:6013-com.main.util.SSILogger-com.main.util.SSILogger.main(SSILogger.java:17)- 当前时间 :2017-12-13 09:14:33:597
